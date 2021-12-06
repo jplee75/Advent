@@ -31,15 +31,5 @@ for each_day in range(1,max_days+1):
     all_the_fish[8].new_spawn_count = generation_spawned
     generation_spawned = 0
 
-    #for group in all_the_fish:
-    #    print(str(group.age)+":" + str(group.existing_count) + ":" + str(group.new_spawn_count))
-    #for i in range(len(print_list)):
-    #    for j in range(len(print_list[i])):
-    #        print(print_list[i][j].age,end=",")
-    #print(f"\n")
-
 total_fish = sum([(fish_group.existing_count+fish_group.new_spawn_count) for fish_group in all_the_fish])
 print(total_fish)
-
-#part 2 okay time to get smart about this
-#list[[age,count]]
