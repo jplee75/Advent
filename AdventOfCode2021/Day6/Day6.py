@@ -1,5 +1,5 @@
 import datetime
-
+import time
 class lantern_fish:
     def __init__(self,age,existing_count,new_spawn_count):
         self.age=age
@@ -9,14 +9,18 @@ class lantern_fish:
 all_the_fish=[lantern_fish(i,0,0) for i in range(9)]
 max_days = 256
 
+
+
 with open("AdventOfCode2021\Day6\Input\Input6.txt","r") as input_file:
     for input_line in input_file:
         for each_fish in input_line.split(","):
             all_the_fish[int(each_fish)].existing_count +=1
 
+start_time = time.time()
+
 generation_spawned=0
 for each_day in range(1,max_days+1):
-    print("Day " + str(each_day) + "  Current Time : " + str(datetime.datetime.now()))
+    #print("Day " + str(each_day) + "  Current Time : " + str(datetime.datetime.now()))
     for f in range(len(all_the_fish)):
         if f == 0: 
             generation_spawned = all_the_fish[f].existing_count
@@ -33,3 +37,4 @@ for each_day in range(1,max_days+1):
 
 total_fish = sum([(fish_group.existing_count+fish_group.new_spawn_count) for fish_group in all_the_fish])
 print(total_fish)
+print("--- %s seconds ---" % (time.time() - start_time))
