@@ -21,10 +21,15 @@ sub_groups=Counter(list_of_subs)
 min_fuel = 10000000000
 
 sub_mean = statistics.mean(list_of_subs)
-sub_variance = statistics.pvariance(list_of_subs)
+sub_dev = statistics.stdev(list_of_subs)
 
-low_X = math.floor(sub_mean-sub_variance)
-high_X = math.ceiling(sub_mean+sub_variance)
+low_X = math.floor(sub_mean-sub_dev)
+if low_X < min(list_of_subs):
+    low_X = min(list_of_subs)
+high_X = math.ceil(sub_mean+sub_dev)
+if high_X > max(list_of_subs):
+    high_X = max(list_of_subs)
+
 
 for i in range(low_X,high_X):
     move_us = remove_group(sub_groups, i)
@@ -35,12 +40,9 @@ for i in range(low_X,high_X):
 print(min_fuel)
 
 #part deux
-sub_group2 = {int(k):int(v) for k,v in sub_groups.items()}
-min_X = min(list_of_subs)
-max_X = max(list_of_subs)
 
 min_fuel2 = 100000000000000000
-for i in range(min_X,max_X):
+for i in range(low_X,high_X):
     move_us = remove_group(sub_groups, i)
     tot_fuel_used = sum([natural_sum(abs(i-k))*v for k, v in move_us.items()])
     if tot_fuel_used <= min_fuel2:
