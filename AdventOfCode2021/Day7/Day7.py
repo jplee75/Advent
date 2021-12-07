@@ -1,4 +1,6 @@
-from collections import Counter  
+from collections import Counter 
+import statistics 
+import math
 
 def remove_group(d,key):
     return {k: v for k,v in d.items() if k !=key}
@@ -18,9 +20,15 @@ sub_groups=Counter(list_of_subs)
 
 min_fuel = 10000000000
 
-for group in sub_groups:
-    move_us = remove_group(sub_groups, group)
-    total_fuel_used = sum([abs(group-k)*v for k, v in move_us.items()])
+sub_mean = statistics.mean(list_of_subs)
+sub_variance = statistics.pvariance(list_of_subs)
+
+low_X = math.floor(sub_mean-sub_variance)
+high_X = math.ceiling(sub_mean+sub_variance)
+
+for i in range(low_X,high_X):
+    move_us = remove_group(sub_groups, i)
+    total_fuel_used = sum([abs(i-k)*v for k, v in move_us.items()])
     if total_fuel_used <= min_fuel:
         min_fuel = total_fuel_used
     
